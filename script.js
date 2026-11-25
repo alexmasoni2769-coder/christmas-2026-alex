@@ -119,9 +119,13 @@ function carte(c, i) {
         <h2 class="card__title">${escapeHtml(c.nom)}</h2>
         ${c.description ? `<p class="card__desc">${escapeHtml(c.description)}</p>` : ""}
         <div class="card__footer">
-          <span class="card__price">${formatPrix(c.prix)}</span>
+          <div class="card__pricing">
+            ${c.prixAvant ? `<s class="card__old">${formatPrix(c.prixAvant)}</s>` : ""}
+            <span class="card__price ${c.prixTexte ? "card__price--text" : ""}">${escapeHtml(c.prixTexte || formatPrix(c.prix))}</span>
+          </div>
           ${lien}
         </div>
+        ${c.note ? `<p class="card__note">🎁 ${escapeHtml(c.note)}</p>` : ""}
       </div>
     </article>`;
 }
