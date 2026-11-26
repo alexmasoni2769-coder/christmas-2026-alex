@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Étiquettes de Noël 🎁</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red-900: #3d070e; --red-800: #5c0b16; --red-700: #7a0f1c; --red-500: #b3182b;
+      --gold-300: #f3d98b; --gold-400: #e4bf63; --gold-500: #c9993d; --gold-700: #8a6420;
+      --cream: #fbf3e4; --ink: #2a0d10;
+      --font-title: "Fraunces", Georgia, serif;
+      --font-body: "DM Sans", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; font-family: var(--font-body); color: var(--cream);
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(228,191,99,.14), transparent 70%),
+        var(--red-900);
+      -webkit-font-smoothing: antialiased;
+    }
+    em { font-style: italic; font-weight: 400; color: var(--gold-300); }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+
+    header { text-align: center; padding: 3.5rem 0 2rem; }
+    .eyebrow { margin: 0 0 .8rem; font-size: .78rem; font-weight: 700; letter-spacing: .32em; text-transform: uppercase; color: var(--gold-400); }
+    h1 { margin: 0; font: 800 clamp(2.2rem, 6vw, 4rem)/1.05 var(--font-title); letter-spacing: -.02em; }
+    .intro { max-width: 56ch; margin: 1.2rem auto 0; line-height: 1.6; color: rgba(251,243,228,.8); }
+
+    .layout { display: grid; grid-template-columns: 1fr 360px; gap: 2rem; align-items: start; }
+    @media (max-width: 960px) { .layout { grid-template-columns: 1fr; } }
+
+    h2 { margin: 0 0 1rem; font: 600 1.35rem var(--font-title); }
+
+    /* Étiquettes */
+    .labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.1rem; }
+    .label {
+      background: var(--cream); color: var(--ink); border-radius: 16px; overflow: hidden;
+      box-shadow: 0 14px 32px rgba(0,0,0,.35); transition: box-shadow .25s, transform .25s;
+    }
+    .label.is-on { box-shadow: 0 0 0 3px var(--gold-400), 0 14px 32px rgba(0,0,0,.35); }
+    .label img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; }
+    .label__bar { display: flex; align-items: center; justify-content: space-between; padding: .7rem .9rem; }
+    .label__name { font: 600 1.15rem var(--font-title); color: var(--red-700); }
+    .stepper { display: flex; align-items: center; gap: .35rem; }
+    .stepper button {
+      width: 34px; height: 34px; border: 0; border-radius: 50%; cursor: pointer;
+      font: 700 1.1rem var(--font-body); color: var(--cream); background: var(--red-700);
+      transition: background .2s, transform .15s;
+    }
+    .stepper button:hover { background: var(--red-500); }
+    .stepper button:active { transform: scale(.92); }
+    .stepper input {
+      width: 52px; height: 34px; text-align: center; border: 1px solid rgba(122,15,28,.25); border-radius: 10px;
+      font: 700 1rem var(--font-body); color: var(--ink); background: #fff;
+    }
+
+    .quick { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.2rem; }
+    .chip {
+      padding: .55rem 1rem; border: 0; border-radius: 999px; cursor: pointer; font: 500 .88rem var(--font-body);
+      color: var(--cream); background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(251,243,228,.18);
+    }
+    .chip:hover { background: rgba(255,255,255,.14); }
+
+    /* Panneau */
+    .panel {
+      position: sticky; top: 1.25rem; padding: 1.5rem; border-radius: 20px;
+      background: rgba(92,11,22,.55); box-shadow: inset 0 0 0 1px rgba(228,191,99,.35); backdrop-filter: blur(6px);
+    }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: 1.2rem; }
+    .stat { padding: .9rem; border-radius: 14px; background: rgba(0,0,0,.2); text-align: center; }
+    .stat b { display: block; font: 800 1.9rem var(--font-title); color: var(--gold-300); }
+    .stat span { font-size: .8rem; color: rgba(251,243,228,.7); }
+
+    .field { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: .7rem 0; font-size: .9rem; }
+    .field input, .field select {
+      width: 96px; padding: .45rem .55rem; border: 0; border-radius: 8px; font: 500 .9rem var(--font-body);
+      color: var(--ink); background: var(--cream);
+    }
+    .field select { width: 190px; }
+    .hint { margin: .2rem 0 .8rem; font-size: .78rem; line-height: 1.45; color: rgba(251,243,228,.6); }
+
+    details { margin: 1rem 0; padding-top: 1rem; border-top: 1px dashed rgba(228,191,99,.3); }
+    summary { cursor: pointer; font-weight: 700; color: var(--gold-300); }
+
+    .btn-gold {
+      width: 100%; margin-top: 1rem; padding: 1rem 1.2rem; border: 0; border-radius: 999px; cursor: pointer;
+      font: 700 1rem var(--font-body); color: var(--red-800);
+      background: linear-gradient(135deg, var(--gold-300), var(--gold-400) 45%, var(--gold-500));
+      box-shadow: 0 0 0 3px var(--red-700), 0 0 0 5px var(--gold-500), 0 12px 30px rgba(0,0,0,.4);
+      transition: transform .2s, opacity .2s;
+    }
+    .btn-gold:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn-gold:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-ghost {
+      width: 100%; margin-top: 1.1rem; padding: .85rem 1.2rem; border: 0; border-radius: 999px; cursor: pointer;
+      font: 700 .92rem var(--font-body); color: var(--gold-300); background: rgba(255,255,255,.05);
+      box-shadow: inset 0 0 0 1px rgba(228,191,99,.5);
+    }
+    .btn-ghost:hover:not(:disabled) { background: rgba(228,191,99,.12); }
+    .btn-ghost:disabled { opacity: .45; cursor: not-allowed; }
+    .status { min-height: 1.2em; margin: .9rem 0 0; font-size: .85rem; text-align: center; color: var(--gold-300); }
+
+    /* Aperçu des planches */
+    .preview-title { margin-top: 2.5rem; }
+    .sheets { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+    .sheet {
+      position: relative; width: 210px; aspect-ratio: 210 / 297; background: #fff; border-radius: 4px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.4); overflow: hidden;
+    }
+    .sheet__slot { position: absolute; }
+    .sheet__slot.is-empty { outline: 1px dashed rgba(122,15,28,.18); outline-offset: -1px; }
+    .sheet__slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sheet__num { margin: .4rem 0 0; text-align: center; font-size: .8rem; color: rgba(251,243,228,.65); }
+    .empty { color: rgba(251,243,228,.6); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">Atelier du Père Noël</p>
+      <h1>Les étiquettes <em>cadeaux</em></h1>
+      <p class="intro">Choisis combien d'étiquettes imprimer pour chaque prénom, puis télécharge le fichier Word, prêt à imprimer sur une planche <strong>Avery 3422</strong> (A4, 24 étiquettes de 70 × 35 mm).</p>
+    </header>
+
+    <div class="layout">
+      <section>
+        <h2>Choisis tes étiquettes</h2>
+        <div class="quick">
+          <button class="chip" data-quick="one">1 de chaque</button>
+          <button class="chip" data-quick="four">4 de chaque (1 planche)</button>
+          <button class="chip" data-quick="reset">Tout remettre à zéro</button>
+        </div>
+        <div class="labels" id="labels"></div>
+
+        <h2 class="preview-title">Aperçu des planches</h2>
+        <div class="sheets" id="sheets"></div>
+      </section>
+
+      <aside class="panel">
+        <div class="stats">
+          <div class="stat"><b id="total">0</b><span>étiquettes</span></div>
+          <div class="stat"><b id="pages">0</b><span>planche(s) A4</span></div>
+        </div>
+
+        <div class="field">
+          <label for="start">Commencer à la case n°</label>
+          <input id="start" type="number" min="1" value="1" />
+        </div>
+        <p class="hint">Pratique si ta planche est déjà entamée : les cases sont comptées de gauche à droite, ligne par ligne.</p>
+
+        <div class="field">
+          <label for="order">Ordre</label>
+          <select id="order">
+            <option value="group">Regroupées par prénom</option>
+            <option value="mix">Alternées</option>
+          </select>
+        </div>
+
+        <details>
+          <summary>Réglages de la planche (Avery 3422)</summary>
+          <div class="field"><label for="cols">Colonnes</label><input id="cols" type="number" min="1" value="3" /></div>
+          <div class="field"><label for="rows">Lignes</label><input id="rows" type="number" min="1" value="8" /></div>
+          <div class="field"><label for="mt">Marge haut (mm)</label><input id="mt" type="number" step="0.1" min="0" value="8.5" /></div>
+          <div class="field"><label for="ml">Marge gauche (mm)</label><input id="ml" type="number" step="0.1" min="0" value="0" /></div>
+          <div class="field"><label for="gx">Espace horizontal (mm)</label><input id="gx" type="number" step="0.1" min="0" value="0" /></div>
+          <div class="field"><label for="gy">Espace vertical (mm)</label><input id="gy" type="number" step="0.1" min="0" value="0" /></div>
+          <p class="hint">Réglé pour le modèle <strong>Avery 3422</strong> : 3 colonnes × 8 lignes, étiquettes bord à bord, 8,5 mm de marge en haut et en bas. Ne touche à ces valeurs que si l'impression est décalée.</p>
+          <button type="button" class="chip" id="reset-avery" style="margin-top:.4rem">↺ Revenir au réglage Avery 3422</button>
+        </details>
+
+        <button class="btn-gold" id="download-pdf" disabled>⬇ Télécharger en PDF</button>
+        <button class="btn-ghost" id="download" disabled>⬇ Télécharger en Word (.docx)</button>
+        <p class="status" id="status"></p>
+        <p class="hint">Le PDF est le plus simple et le plus précis. À l'impression : format A4, échelle 100 % (« Taille réelle »). Fais d'abord un essai sur une feuille blanche, posée contre la planche à la lumière.</p>
+      </aside>
+    </div>
+  </div>
+
+  <script src="js/docx.iife.js"></script>
+  <script src="js/jspdf.umd.min.js"></script>
+  <script>
+    const ETIQUETTES = [
+      { nom: "Alex",  image: "assets/etiquettes/alex.jpg" },
+      { nom: "Mimie", image: "assets/etiquettes/mimie.jpg" },
+      { nom: "Marc",  image: "assets/etiquettes/marc.jpg" },
+      { nom: "Vivi",  image: "assets/etiquettes/vivi.jpg" },
+      { nom: "Eva",   image: "assets/etiquettes/eva.jpg" },
+      { nom: "Mamie", image: "assets/etiquettes/mamie.jpg" },
+    ];
+    const LABEL_W = 70, LABEL_H = 35, PAGE_W = 210, PAGE_H = 297; // mm
+
+    const qty = Object.fromEntries(ETIQUETTES.map((e) => [e.nom, 0]));
+    const $ = (id) => document.getElementById(id);
+    const num = (id, def = 0) => { const v = parseFloat($(id).value); return isNaN(v) ? def : v; };
+
+    function settings() {
+      return {
+        cols: Math.max(1, Math.round(num("cols", 3))),
+        rows: Math.max(1, Math.round(num("rows", 8))),
+        mt: num("mt"), ml: num("ml"), gx: num("gx"), gy: num("gy"),
+        start: Math.max(1, Math.round(num("start", 1))),
+        order: $("order").value,
+      };
+    }
+
+    /* ---------- Cartes de sélection ---------- */
+    const labelsEl = $("labels");
+    labelsEl.innerHTML = ETIQUETTES.map((e) => `
+      <article class="label" data-nom="${e.nom}">
+        <img src="${e.image}" alt="Étiquette ${e.nom}" />
+        <div class="label__bar">
+          <span class="label__name">${e.nom}</span>
+          <div class="stepper">
+            <button type="button" data-step="-1" aria-label="Retirer une étiquette ${e.nom}">−</button>
+            <input type="number" min="0" value="0" aria-label="Nombre d'étiquettes ${e.nom}" />
+            <button type="button" data-step="1" aria-label="Ajouter une étiquette ${e.nom}">+</button>
+          </div>
+        </div>
+      </article>`).join("");
+
+    labelsEl.addEventListener("click", (ev) => {
+      const b = ev.target.closest("[data-step]"); if (!b) return;
+      const card = b.closest(".label"), nom = card.dataset.nom;
+      qty[nom] = Math.max(0, qty[nom] + Number(b.dataset.step));
+      update();
+    });
+    labelsEl.addEventListener("input", (ev) => {
+      if (ev.target.tagName !== "INPUT") return;
+      const nom = ev.target.closest(".label").dataset.nom;
+      qty[nom] = Math.max(0, Math.round(Number(ev.target.value) || 0));
+      update(false);
+    });
+    document.querySelector(".quick").addEventListener("click", (ev) => {
+      const q = ev.target.closest("[data-quick]")?.dataset.quick; if (!q) return;
+      const n = { one: 1, four: 4, reset: 0 }[q];
+      ETIQUETTES.forEach((e) => (qty[e.nom] = n));
+      update();
+    });
+    ["start", "order", "cols", "rows", "mt", "ml", "gx", "gy"].forEach((id) => $(id).addEventListener("input", () => update()));
+
+    /* ---------- Placement ---------- */
+    function sequence(order) {
+      if (order === "group") return ETIQUETTES.flatMap((e) => Array(qty[e.nom]).fill(e));
+      const left = { ...qty }, out = [];
+      let added = true;
+      while (added) {
+        added = false;
+        for (const e of ETIQUETTES) if (left[e.nom] > 0) { out.push(e); left[e.nom]--; added = true; }
+      }
+      return out;
+    }
+
+    function buildSheets() {
+      const s = settings(), perSheet = s.cols * s.rows;
+      const offset = (s.start - 1) % perSheet;
+      const slots = [...Array(offset).fill(null), ...sequence(s.order)];
+      const sheets = [];
+      for (let i = 0; i < slots.length; i += perSheet) {
+        const page = slots.slice(i, i + perSheet);
+        while (page.length < perSheet) page.push(null);
+        sheets.push(page);
+      }
+      return { s, sheets, total: slots.length - offset };
+    }
+
+    /* ---------- Mise à jour + aperçu ---------- */
+    function update(syncInputs = true) {
+      labelsEl.querySelectorAll(".label").forEach((card) => {
+        const n = qty[card.dataset.nom];
+        if (syncInputs) card.querySelector("input").value = n;
+        card.classList.toggle("is-on", n > 0);
+      });
+      const { s, sheets, total } = buildSheets();
+      $("total").textContent = total;
+      $("pages").textContent = total ? sheets.length : 0;
+      $("download").disabled = total === 0;
+      $("download-pdf").disabled = total === 0;
+
+      const pct = (mm, ref) => (mm / ref) * 100 + "%";
+      $("sheets").innerHTML = total
+        ? sheets.map((page, p) => `
+          <div>
+            <div class="sheet">
+              ${page.map((e, i) => {
+                const c = i % s.cols, r = Math.floor(i / s.cols);
+                const x = s.ml + c * (LABEL_W + s.gx), y = s.mt + r * (LABEL_H + s.gy);
+                return `<div class="sheet__slot${e ? "" : " is-empty"}" style="left:${pct(x, PAGE_W)};top:${pct(y, PAGE_H)};width:${pct(LABEL_W, PAGE_W)};height:${pct(LABEL_H, PAGE_H)}">${e ? `<img src="${e.image}" alt="">` : ""}</div>`;
+              }).join("")}
+            </div>
+            <p class="sheet__num">Planche ${p + 1}</p>
+          </div>`).join("")
+        : `<p class="empty">Ajoute des étiquettes pour voir l'aperçu 🎄</p>`;
+    }
+    update();
+
+    /* ---------- Génération du Word ---------- */
+    const mmToTwip = (mm) => Math.round(mm * 1440 / 25.4);
+    const mmToPx = (mm) => (mm * 96) / 25.4;
+
+    async function loadImages() {
+      const out = {};
+      await Promise.all(ETIQUETTES.map(async (e) => {
+        const res = await fetch(e.image);
+        out[e.nom] = new Uint8Array(await res.arrayBuffer());
+      }));
+      return out;
+    }
+
+    async function generate() {
+      const btn = $("download"), status = $("status");
+      btn.disabled = true; status.textContent = "Préparation du fichier…";
+      try {
+        const D = window.docx;
+        const { s, sheets } = buildSheets();
+        const images = await loadImages();
+        const none = { style: D.BorderStyle.NONE, size: 0, color: "FFFFFF" };
+        const noBorders = { top: none, bottom: none, left: none, right: none, insideHorizontal: none, insideVertical: none };
+        const zero = { top: 0, bottom: 0, left: 0, right: 0 };
+        const tight = { before: 0, after: 0, line: 240, lineRule: D.LineRuleType.AUTO };
+
+        // Colonnes : étiquette / espace / étiquette / …
+        const colWidths = [];
+        for (let c = 0; c < s.cols; c++) {
+          colWidths.push(mmToTwip(LABEL_W));
+          if (s.gx > 0 && c < s.cols - 1) colWidths.push(mmToTwip(s.gx));
+        }
+        const emptyCell = (w) => new D.TableCell({
+          width: { size: w, type: D.WidthType.DXA }, margins: zero, borders: noBorders,
+          children: [new D.Paragraph({ spacing: tight, children: [new D.TextRun({ text: "", size: 2 })] })],
+        });
+
+        // L'image remplit exactement la case (images rognées au format 2:1)
+        const imgW = mmToPx(LABEL_W), imgH = mmToPx(LABEL_H);
+
+        const sections = sheets.map((page) => {
+          const rows = [];
+          for (let r = 0; r < s.rows; r++) {
+            const cells = [];
+            for (let c = 0; c < s.cols; c++) {
+              const e = page[r * s.cols + c];
+              cells.push(new D.TableCell({
+                width: { size: mmToTwip(LABEL_W), type: D.WidthType.DXA },
+                margins: zero, borders: noBorders, verticalAlign: D.VerticalAlign.CENTER,
+                children: [new D.Paragraph({
+                  alignment: D.AlignmentType.CENTER, spacing: tight,
+                  children: e
+                    ? [new D.ImageRun({ type: "jpg", data: images[e.nom], transformation: { width: imgW, height: imgH } })]
+                    : [new D.TextRun({ text: "", size: 2 })],
+                })],
+              }));
+              if (s.gx > 0 && c < s.cols - 1) cells.push(emptyCell(mmToTwip(s.gx)));
+            }
+            rows.push(new D.TableRow({ cantSplit: true, height: { value: mmToTwip(LABEL_H), rule: D.HeightRule.EXACT }, children: cells }));
+            if (s.gy > 0 && r < s.rows - 1) {
+              rows.push(new D.TableRow({ height: { value: mmToTwip(s.gy), rule: D.HeightRule.EXACT }, children: colWidths.map(emptyCell) }));
+            }
+          }
+          return {
+            properties: {
+              page: {
+                size: { width: mmToTwip(PAGE_W), height: mmToTwip(PAGE_H) },
+                margin: { top: mmToTwip(s.mt), left: mmToTwip(s.ml), right: 0, bottom: 0, header: 0, footer: 0, gutter: 0 },
+              },
+            },
+            children: [
+              new D.Table({
+                width: { size: colWidths.reduce((a, b) => a + b, 0), type: D.WidthType.DXA },
+                columnWidths: colWidths, layout: D.TableLayoutType.FIXED, borders: noBorders,
+                margins: { top: 0, bottom: 0, left: 0, right: 0 },
+                rows,
+              }),
+              new D.Paragraph({ spacing: { before: 0, after: 0, line: 20, lineRule: D.LineRuleType.EXACT }, children: [new D.TextRun({ text: "", size: 2 })] }),
+            ],
+          };
+        });
+
+        const doc = new D.Document({ creator: "Alex", title: "Étiquettes de Noël", sections });
+        const blob = await D.Packer.toBlob(doc);
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "etiquettes-noel.docx";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+        status.textContent = "C'est prêt ! 🎁 Le fichier est téléchargé.";
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Oups, une erreur est survenue. Réessaie.";
+      } finally {
+        btn.disabled = false;
+      }
+    }
+    $("download").addEventListener("click", generate);
+
+    /* ---------- Génération du PDF ---------- */
+    async function generatePdf() {
+      const btn = $("download-pdf"), status = $("status");
+      btn.disabled = true; status.textContent = "Préparation du PDF…";
+      try {
+        const { s, sheets } = buildSheets();
+        const urls = {};
+        await Promise.all(ETIQUETTES.map(async (e) => {
+          const blob = await (await fetch(e.image)).blob();
+          urls[e.nom] = await new Promise((ok) => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(blob); });
+        }));
+        const pdf = new window.jspdf.jsPDF({ unit: "mm", format: "a4", orientation: "portrait", compress: true });
+        pdf.setProperties({ title: "Étiquettes de Noël", creator: "Alex" });
+        sheets.forEach((page, p) => {
+          if (p > 0) pdf.addPage("a4", "portrait");
+          page.forEach((e, i) => {
+            if (!e) return;
+            const c = i % s.cols, r = Math.floor(i / s.cols);
+            const x = s.ml + c * (LABEL_W + s.gx), y = s.mt + r * (LABEL_H + s.gy);
+            pdf.addImage(urls[e.nom], "JPEG", x, y, LABEL_W, LABEL_H, e.nom, "FAST");
+          });
+        });
+        pdf.save("etiquettes-noel.pdf");
+        status.textContent = "C'est prêt ! 🎁 Le PDF est téléchargé.";
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Oups, une erreur est survenue. Réessaie.";
+      } finally {
+        btn.disabled = false;
+      }
+    }
+    $("download-pdf").addEventListener("click", generatePdf);
+    $("reset-avery").addEventListener("click", () => {
+      Object.entries({ cols: 3, rows: 8, mt: 8.5, ml: 0, gx: 0, gy: 0 }).forEach(([k, v]) => ($(k).value = v));
+      update();
+    });
+  </script>
+</body>
+</html>
